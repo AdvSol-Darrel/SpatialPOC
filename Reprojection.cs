@@ -39,44 +39,13 @@ namespace SpatialPOC
         {
             _geometryFactory = new GeometryFactory();
 
-            /*ReprojectNAD83toWGS84();
-            ReprojectWGS84toNAD83();*/
-
-            //Calculate3DDistanceBetween2Points();
-
-        }
-
-        private static void Calculate3DDistanceBetween2Points()
-        {
-            //first figure out which UTM zone our coordinates are in
-            int utm = (int)Math.Floor((-123.6142205 + 180) / 6) % 60 + 1;
-
-            var originCS = GeographicCoordinateSystem.WGS84;
-            var targetCS = ProjectedCoordinateSystem.WGS84_UTM(utm, true);
-
-            var transFactory = new CoordinateTransformationFactory();
-            var transform = transFactory.CreateFromCoordinateSystems(originCS, targetCS);
-
-            var pointA = new CoordinateZ(-123.6142205, 48.8012582, 157.6479456);
-            var pointB = new CoordinateZ(-123.6121899, 48.8001664, 148.4268458);
-
-            /*var coordA = _geometryFactory.CreatePoint(new CoordinateZ(-123.6142205, 48.8012582, 157.6479456));
-            var coordB = _geometryFactory.CreatePoint(new CoordinateZ(-123.6121899, 48.8001664, 148.4268458));
-            
-            var newCoordA = Transform(coordA, transform.MathTransform);
-            var newCoordB = Transform(coordB, transform.MathTransform);
-            
-            double result = newCoordA.Distance3D(newCoordB);*/
-
-            double result = pointA.Distance3D(pointB);
-
-            Console.WriteLine($"3D Distance between {pointA} and {pointB} is {result}");
+            ReprojectNAD83toWGS84();
+            ReprojectWGS84toNAD83();
         }
 
         private static void ReprojectNAD83toWGS84()
         {
-            //var point = _geometryFactory.CreatePoint(new CoordinateZ(992000.68836478, 922777.27310679, 1000));
-            var point = _geometryFactory.CreatePoint(new CoordinateZ(992000.6918534045, 922777.2878385643, 1000.0055629117414));
+            var point = _geometryFactory.CreatePoint(new CoordinateZ(992000.68836478, 922777.27310679, 1000));
             Console.WriteLine($"3005 LS - {point.ToText()}");
 
             var rpGeom = ReprojectGeometry(point, srid3005, srid4326);
@@ -87,8 +56,7 @@ namespace SpatialPOC
         private static void ReprojectWGS84toNAD83()
         {
 
-            //var point = _geometryFactory.CreatePoint(new CoordinateZ(-123.6121899, 48.8001664, 148.4268458));
-            var point = _geometryFactory.CreatePoint(new CoordinateZ(-126.12032035209688, 53.3114257414847, 1000.0054282639176));
+            var point = _geometryFactory.CreatePoint(new CoordinateZ(-123.6121899, 48.8001664, 148.4268458));
             Console.WriteLine($"4326 LS - {point.ToText()}");
 
             var rpGeom = ReprojectGeometry(point, srid4326, srid3005);
