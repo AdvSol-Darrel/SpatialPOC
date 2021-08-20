@@ -1,3 +1,5 @@
+[![Lifecycle:Experimental](https://img.shields.io/badge/Lifecycle-Experimental-339999)]
+
 # Spatial Data POC
 
 This mini project is a POC that shows how to perform different tasks to manipulate or act on spatial geometry using the NetTopologySuite in-memory operations, PostgreSQL + PostGIS EF database operations & (still a WIP) Oracle EF database operations.
@@ -15,7 +17,8 @@ This mini project is a POC that shows how to perform different tasks to manipula
 
 Assumes you have Visual Studio & Docker installed.
 - Fork & Clone the Repo
-- Execute the docker-compose in postgis
+- Execute the docker-compose in ./docker/postgis
+- Execute the scripts in ./ddl to create the required schema/table(s).
 - Open the solution and ensure the required libraries are installed.
 - You can rebuild the EF Context/Models with the following command 
     ```Scaffold-DbContext -Connection "host=localhost;port=5432;database=gis;user id=docker;password=docker" -Provider Npgsql.EntityFrameworkCore.PostgreSQL -o Models -ContextDir Context -Context MyDbContext -Force```
