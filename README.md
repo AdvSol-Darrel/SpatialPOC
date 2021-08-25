@@ -2,7 +2,7 @@
 
 # Spatial Data POC
 
-This mini project is a POC that shows how to perform different tasks to manipulate or act on spatial geometry using the NetTopologySuite in-memory operations, PostgreSQL + PostGIS EF database operations & (still a WIP) Oracle EF database operations.
+This mini project is a POC that shows how to perform different tasks to manipulate or act on spatial geometry using the NetTopologySuite in-memory operations, PostgreSQL + PostGIS EF database operations.
 
 ## Libraries Used
 - [NetTopologySuite](https://github.com/NetTopologySuite/NetTopologySuite) :  This library is used in this project to perform GIS functions that are absent from SQL Server in-memory.

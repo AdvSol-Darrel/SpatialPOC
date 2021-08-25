@@ -27,7 +27,7 @@ namespace SpatialPOC.Services
             return _mapper.Map<IEnumerable<LineDto>>(dbSet.Select(l => new LineDto
             {
                 LineId = l.Id,
-                Geometry = EF.Functions.Transform(l.Geometry, l.SRId)
+                Geometry = EF.Functions.Transform(l.Geometry, 4326)
             })
             .ToList());
         }
