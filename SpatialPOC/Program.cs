@@ -20,9 +20,11 @@ namespace SpatialPOC
             string connectionString = "host=localhost;port=5432;database=gis;user id=docker;password=docker";
             var svcCollection = new ServiceCollection();
             svcCollection.AddSingleton<ZogLineService>();
-            svcCollection.AddDbContext<MyDbContext>(options => {
+            svcCollection.AddDbContext<ScaffoldDbContext>(options => {
                 options.UseNpgsql(connectionString, o => o.UseNetTopologySuite());
             });
+            svcCollection.AddDbContext<AppDbContext>();
+
             var mappingConfig = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new EntityToModel());
@@ -52,15 +54,22 @@ namespace SpatialPOC
             #region Get Line info from DB
             var zogLineSvc = svcProvider.GetService<ZogLineService>();
             
-            var lines = zogLineSvc.GetLines();
-            if (lines != null)
-            {
-                foreach (var line in lines)
-                {
-                    reprojection.ReprojectNAD83toWGS84(line.Geometry);
-                }
-            }
+            var lines = zogLineSvc.GetTransformedLines();
             
+            foreach (var line in lines)
+            {
+                Console.WriteLine($"\nLine {line.LineId} transformed on DB Server value {line.Geometry.ToText()}");
+            }
+
+            var _3Dlengths = zogLineSvc.GetST_3DLength();
+            foreach (var len in _3Dlengths)
+            {
+                Console.WriteLine($"\n3D Length of LineId {len.LineId} is {len.Length}");
+            }
+
+
+            var interpolatedLine = zogLineSvc.LineInterpolate();
+            Console.WriteLine($"\nInterpolated line value {interpolatedLine.Geometry.ToText()}");
             Console.ReadLine();
             #endregion  
         }

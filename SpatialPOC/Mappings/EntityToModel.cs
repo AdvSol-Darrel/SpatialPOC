@@ -11,7 +11,7 @@ namespace SpatialPOC.Mappings
             SourceMemberNamingConvention = new LowerUnderscoreNamingConvention();
             DestinationMemberNamingConvention = new PascalCaseNamingConvention();
 
-            CreateMap<ZogLine, LineDto>();
+            CreateMap<ZogGeometry, LineDto>();
         }
     }
 }

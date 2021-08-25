@@ -6,10 +6,9 @@ using System.Text;
 
 namespace SpatialPOC.Dto
 {
-    public class LineDto
+    public class CalculatedGeometry
     {
-        public decimal LineId { get; set; }
-        
+        [Column("geom")]
         public Geometry Geometry { get; set; }
     }
 }

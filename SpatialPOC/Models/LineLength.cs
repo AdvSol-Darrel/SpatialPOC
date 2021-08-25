@@ -1,15 +1,15 @@
-﻿using NetTopologySuite.Geometries;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace SpatialPOC.Dto
 {
-    public class LineDto
+    public class LineLength
     {
+        [Column("id")]
         public decimal LineId { get; set; }
-        
-        public Geometry Geometry { get; set; }
+
+        public double? Length { get; set; }
     }
 }
