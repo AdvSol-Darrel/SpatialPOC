@@ -21,4 +21,4 @@ Assumes you have Visual Studio & Docker installed.
 - Execute the scripts in ./ddl to create the required schema/table(s).
 - Open the solution and ensure the required libraries are installed.
 - You can rebuild the EF Context/Models with the following command 
-    ```Scaffold-DbContext -Connection "host=localhost;port=5432;database=gis;user id=docker;password=docker" -Provider Npgsql.EntityFrameworkCore.PostgreSQL -o Models -ContextDir Context -Context MyDbContext -Force```
+    ```Scaffold-DbContext -Connection "host=localhost;port=5432;database=gis;user id=docker;password=docker" -Provider Npgsql.EntityFrameworkCore.PostgreSQL -o Models -ContextDir Context -Context ScaffoldDbContext -Schemas gis_test -Force```

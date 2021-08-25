@@ -18,7 +18,8 @@ namespace SpatialPOC.Context
         {
         }
 
-        public virtual DbSet<ZogGeometry> ZogGeometry { get; set; }
+        public virtual DbSet<ZogGeometry> ZogGeometries { get; set; }
+        public virtual DbSet<ZogWkt> ZogWkts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,11 +39,36 @@ namespace SpatialPOC.Context
 
                 entity.Property(e => e.Geometry).HasColumnName("geometry");
 
+                entity.Property(e => e.GeometryType)
+                    .HasColumnType("character varying")
+                    .HasColumnName("geometry_type");
+
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.SRId).HasColumnName("srid");
+                entity.Property(e => e.Srid).HasColumnName("srid");
+            });
 
-                entity.Property(e => e.GeometryType).HasColumnName("geometry_type");
+            modelBuilder.Entity<ZogWkt>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("ZogWKT", "gis_test");
+
+                entity.HasIndex(e => e.Id, "zog_geometry_id_idx");
+
+                entity.HasIndex(e => e.Id, "zoggeometry_id_idx")
+                    .IsUnique();
+
+                entity.Property(e => e.GeometryType)
+                    .IsRequired()
+                    .HasColumnType("character varying")
+                    .HasColumnName("geometry_type");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.WktGeometry)
+                    .IsRequired()
+                    .HasColumnName("wkt_geometry");
             });
 
             OnModelCreatingPartial(modelBuilder);
